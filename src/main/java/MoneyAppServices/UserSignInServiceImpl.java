@@ -35,8 +35,7 @@ public class UserSignInServiceImpl implements UserSignIn{
 
 	@Override
 	public void signOut(User user) {
-		// TODO Auto-generated method stub
-		
+		//Some code
 	}
 
 	@Override

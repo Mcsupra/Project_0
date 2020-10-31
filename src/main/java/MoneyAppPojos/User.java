@@ -14,7 +14,7 @@ public class User {
 
 
 	public User( String firstNameLastName,String username, String password, String email, String phoneNum) {
-		super();
+		this();
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -24,7 +24,7 @@ public class User {
 
 	
 	public User() {
-		this("default guest", "default username", "default password","default email","default phoneNum");
+		super();
 	}
 
 	public String getUsername() {

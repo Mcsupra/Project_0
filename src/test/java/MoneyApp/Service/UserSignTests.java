@@ -35,9 +35,11 @@ public class UserSignTests {
 	@Test
 	public void createUserTest() {
 		
+		User userRef = new User("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
+		
 		User userTest = userSignin.createUser("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
 		
-		assertEquals("Should create a user object",userTest,userSignin.createUser("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099"));
+		assertEquals("Should create a user object",userTest.equals(userRef));
 	}
 
 }
