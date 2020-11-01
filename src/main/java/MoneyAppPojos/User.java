@@ -12,7 +12,11 @@ public class User {
 	
 	private String firstNameLastName;
 
-
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public User( String firstNameLastName,String username, String password, String email, String phoneNum) {
 		this();
 		this.username = username;
@@ -22,10 +26,6 @@ public class User {
 		this.firstNameLastName = firstNameLastName;
 	}
 
-	
-	public User() {
-		super();
-	}
 
 	public String getUsername() {
 		return username;

@@ -1,7 +1,6 @@
 package MoneyApp.Service;
 
 import static org.junit.Assert.*;
-//import static org.mockito.Mockito.verify;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,8 +12,8 @@ import MoneyAppPojos.User;
 import MoneyAppServices.UserSignInServiceImpl;
 
 public class UserSignInTests {
-	
-	private UserSignInServiceImpl userSignin;
+
+	private UserSignInServiceImpl userSignIn;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -26,6 +25,7 @@ public class UserSignInTests {
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@After
@@ -35,9 +35,9 @@ public class UserSignInTests {
 	@Test
 	public void createUserTest() {
 		
-		User userRef = new User("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
 		
-		User userTest = userSignin.createUser("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
+		User userRef = new User("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
+		User userTest = userSignIn.createUser("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
 		
 		assertEquals("Should create a user object",userTest.equals(userRef));
 	}

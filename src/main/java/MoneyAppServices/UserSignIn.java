@@ -7,11 +7,13 @@ import MoneyAppPojos.User;
 
 public interface UserSignIn {
 	
+	//Create User if false
+	public User createUser(String firstNameLastName, String username, String password, String email, String phoneNum);
+	
 	//Check to see if user is in DB
 	public boolean checkUser(User user);
 	
-	//Create User if false
-	public User createUser(String firstNameLastName, String username, String password, String email, String phoneNum);
+	
 	
 	//Sign in user if password is successful
 	public boolean signIn(User user);
