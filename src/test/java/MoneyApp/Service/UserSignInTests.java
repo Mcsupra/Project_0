@@ -12,7 +12,7 @@ import org.junit.Test;
 import MoneyAppPojos.User;
 import MoneyAppServices.UserSignInServiceImpl;
 
-public class UserSignTests {
+public class UserSignInTests {
 	
 	private UserSignInServiceImpl userSignin;
 	
