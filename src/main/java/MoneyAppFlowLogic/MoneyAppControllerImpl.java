@@ -73,7 +73,7 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				double balance = scan.nextDouble();
 				scan.nextLine();
 				
-				currentBank= bankChoice.createBank(bankName, balance, acctNum, routeNum);
+				currentBank= cacheBankCredit.createBank(bankName, balance, acctNum, routeNum);
 				return (currentBank != null);
 			
 			case 2:
@@ -91,7 +91,7 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				double cardBalance = scan.nextDouble();
 				scan.nextLine();
 				
-				currentCredit = creditChoice.createCredit(cardNum, cardType, expDate, cVV,cardBalance);
+				currentCredit = cacheBankCredit.createCredit(cardNum, cardType, expDate, cVV,cardBalance);
 				return (currentCredit != null);
 			
 			case 3:	
@@ -106,9 +106,9 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				scan.nextLine();
 				
 				try{
-					System.out.println(sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom));
-					return(betweenUsers.SendMoney(sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom), 
-						   sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyTo), amountToSend));
+					System.out.println(cacheBankCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom));
+					return(betweenUsers.SendMoney(cacheBankCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom), 
+							cacheBankCredit.getCreditCache().retrieveItemFromCache(sendMoneyTo), amountToSend));
 				}catch (NullPointerException e) {
 					return false;
 				}
