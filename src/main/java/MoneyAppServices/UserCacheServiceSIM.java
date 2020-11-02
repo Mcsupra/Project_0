@@ -13,7 +13,6 @@ public class UserCacheServiceSIM<T> implements UserCacheService<T> {
 	public UserCacheServiceSIM(Set<T> cache) {
 		super();
 		this.cache = cache;
-		// TODO Auto-generated constructor stub
 	}
 	
 	
@@ -32,34 +31,32 @@ public class UserCacheServiceSIM<T> implements UserCacheService<T> {
 
 	@Override
 	public void addToCache(T obj) {
-		
+		//Adds an obj to the cache of which ever type
 		cache.add(obj);
 		
 	}
 
 	@Override
 	public void remFromCache(T obj) {
-		// TODO Auto-generated method stub
+		// TODO Remove an item from the cache
+		//		cache.remove(obj) and then check to see the obj still exists
 		
 	}
 
 	@Override
-	public T retrieveItemFromCache(T obj) {
-		// TODO Auto-generated method stub
+	public T retrieveItemFromCache(String username) {
+		// TODO given a username return the object associated with it
+		//		Check set to see it user != null
+		
 		return null;
 	}
 
-	@Override
-	public boolean contains(T obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public void updateFromCache(T org, T upd) {
-		// TODO Auto-generated method stub
-		
-	}
+	/*@Override
+	public void updateFromCache(String field) {
+		// TODO Implement code to change certain fields of object T
+		//		.getEmail = .setEmail for example
+	}*/
 
 	 
 }

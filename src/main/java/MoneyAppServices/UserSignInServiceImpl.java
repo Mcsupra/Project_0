@@ -4,9 +4,9 @@ import java.util.Map;
 
 import MoneyAppPojos.User;
 
-public class UserSignInServiceImpl implements UserSignIn {
+public class UserSignInServiceImpl implements UserSignIn{
 	
-	
+	//private UserCacheServiceSIM<User> userCache = new UserCacheServiceSIM<User>();
 	
 	public UserSignInServiceImpl() {
 		super();
@@ -18,13 +18,17 @@ public class UserSignInServiceImpl implements UserSignIn {
 	public User createUser(String firstNameLastName, String username, String password, String email, String phoneNum) {
 		
 		User newUser = new User(firstNameLastName, username, password, email, phoneNum);
+		//TODO implement adding user object to cache
 		
 		return newUser;
 	}
 	
 	@Override
 	public boolean checkUser(User user) {
-		// TODO Auto-generated method stub
+		// TODO implementation: check to see if user exists in cache
+		//		Check List/Set for a username. Compare that username to the password value
+	
+		
 		return false;
 	}
 
@@ -32,21 +36,19 @@ public class UserSignInServiceImpl implements UserSignIn {
 
 	@Override
 	public boolean signIn(User user) {
-		// TODO Auto-generated method stub
+		// TODO write code that confirms a user identity
+		//		Check List/Set for a username Compare that username to the password value
 		return false;
 	}
 
 	@Override
 	public void signOut(User user) {
-		// TODO Auto-generated method stub
+		// TODO exit the program
+		//  	Press '0' exit out of loop
 		
 	}
 
-	@Override
-	public Map<String, String> allUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 	
 	 

@@ -7,11 +7,9 @@ public interface UserCacheService <T> {
 	
 	public void remFromCache(T obj);
 	
-	public T retrieveItemFromCache(T obj);
+	public T retrieveItemFromCache(String username);
 	
-	public boolean contains(T obj);
-	
-	public void updateFromCache(T org,T upd);
+	//public void updateFromCache(String field);
 	
 
 }

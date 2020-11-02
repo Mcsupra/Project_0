@@ -8,12 +8,11 @@ import MoneyAppServices.UserSignInServiceImpl;
 public class MoneyAppDriver {
 	
 	private static Scanner scan = new Scanner(System.in);
-	private static UserSignInServiceImpl user;
+	private static UserSignInServiceImpl user = new UserSignInServiceImpl();
 	
 	public static void main(String args[]) {
-		//Menu Creation
 		
-		
+		//Menu Creation		
 		System.out.println("What is your full name?");
 		String name = scan.nextLine();
 		System.out.println("What do you want your username to be?");

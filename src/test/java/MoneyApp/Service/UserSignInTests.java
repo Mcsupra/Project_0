@@ -25,6 +25,7 @@ public class UserSignInTests {
 
 	@Before
 	public void setUp() throws Exception {
+		userSignIn = new UserSignInServiceImpl();
 		
 	}
 
@@ -39,7 +40,25 @@ public class UserSignInTests {
 		User userRef = new User("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
 		User userTest = userSignIn.createUser("Michael Zide", "M.zide1212", "Ilikespookyghosts123!", "myEmail@gmail.com", "86753099");
 		
-		assertEquals("Should create a user object",userTest.equals(userRef));
+		assertEquals(true,userTest.equals(userRef));
+	}
+	
+	@Test
+	public void checkUserTest() {
+		// TODO implementation: check to see if user exists in cache
+		//		Check List/Set for a username. Compare that username to the password value
+	
+		
+
 	}
 
+	
+
+	@Test
+	public void signInTest() {
+		
+		
+	}
+
+	
 }
