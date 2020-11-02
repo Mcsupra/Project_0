@@ -11,16 +11,14 @@ public class Credit {
 	private int CVV;
 	
 	private double balance;
-	
 
-	
 
 	public Credit(String cardNum, String cardType, int expirationDate, int cVV, double balance) {
 		super();
 		this.cardNum = cardNum;
 		this.cardType = cardType;
 		this.expirationDate = expirationDate;
-		this.CVV = cVV;
+		CVV = cVV;
 		this.balance = balance;
 	}
 
@@ -69,9 +67,13 @@ public class Credit {
 		return balance;
 	}
 
+
+
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+
+
 
 	@Override
 	public int hashCode() {

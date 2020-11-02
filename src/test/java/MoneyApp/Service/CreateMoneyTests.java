@@ -38,8 +38,8 @@ public class CreateMoneyTests {
 
 	@Test
 	public void createBankTest() {
-		Bank bankRef = new Bank("Walls Fargo",16.17,"4544125332323","011401533");
-		Bank bankTest = testObj.createBank("Walls Fargo",16.17,"4544125332323","011401533");
+		Bank bankRef = new Bank("Walls Fargo",16,"4544125332323","011401533");
+		Bank bankTest = testObj.createBank("Walls Fargo",16,"4544125332323","011401533");
 		
 		assertEquals(true,bankTest.equals(bankRef));
 		
@@ -47,8 +47,8 @@ public class CreateMoneyTests {
 	
 	@Test
 	public void createCreditTest() {
-		Credit creditRef = new Credit("4003846354018", "Visa", 1123, 123,100.12);
-		Credit creditTest = testObj.createCredit("4003846354018", "Visa", 1123, 123,100.12);
+		Credit creditRef = new Credit("4003846354018", "Visa", 1123, 123,100);
+		Credit creditTest = testObj.createCredit("4003846354018", "Visa", 1123, 123,100);
 		
 		assertEquals(true,creditTest.equals(creditRef));
 		

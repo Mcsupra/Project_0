@@ -5,10 +5,10 @@ import MoneyAppPojos.Credit;
 
 public interface MoneyTransferService {
 	
-	public boolean sendMoney(Credit fromUserCredit, Credit toUserCredit);
+	public boolean SendMoney(Credit fromUserCredit, Credit toUserCredit,double amount);
 	
-	public boolean addFunds(Bank fromBankObj, Credit toCardObj);
+	public boolean AddFunds(Bank fromBankObj, Credit toCardObj,double amount);
 	
-	public boolean removefunds(Credit fromUserCard, Bank toUserBank);
+	public boolean Removefunds(Credit fromUserCard, Bank toUserBank,double amount);
 	
 }

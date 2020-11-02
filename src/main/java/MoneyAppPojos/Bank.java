@@ -10,6 +10,8 @@ public class Bank {
 	
 	private String routingNumber;
 
+	
+
 	public Bank(String bankName, double currentBalance, String accountNumber, String routingNumber) {
 		super();
 		this.bankName = bankName;
@@ -31,14 +33,6 @@ public class Bank {
 		this.bankName = bankName;
 	}
 
-	public double getCurrentBalance() {
-		return currentBalance;
-	}
-
-	public void setCurrentBalance(long currentBalance) {
-		this.currentBalance = currentBalance;
-	}
-
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -53,6 +47,14 @@ public class Bank {
 
 	public void setRoutingNumber(String routingNumber) {
 		this.routingNumber = routingNumber;
+	}
+
+	public double getCurrentBalance() {
+		return currentBalance;
+	}
+
+	public void setCurrentBalance(double currentBalance) {
+		this.currentBalance = currentBalance;
 	}
 
 	@Override

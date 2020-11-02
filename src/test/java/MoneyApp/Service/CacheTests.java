@@ -60,8 +60,8 @@ public class CacheTests {
 		
 		cacheServiceUser = new CacheServiceSIM<User>(testUserCache);
 		
-		testBank1 = new Bank("BofA",1212.12,"45485672634587123","091000019");
-		testBank2 = new Bank("Walls Fargo",-10.11,"45444163123","011401533");
+		testBank1 = new Bank("BofA",1212,"45485672634587123","091000019");
+		testBank2 = new Bank("Walls Fargo",-10,"45444163123","011401533");
 
 		
 		testBankCache.put(testBank1.getAccountNumber(),testBank1);
@@ -69,8 +69,8 @@ public class CacheTests {
 	
 		cacheServiceBank = new CacheServiceSIM<Bank>(testBankCache);
 		
-		testCredit1 = new Credit("4003830171874018", "Visa", 1123, 123,121.12);
-		testCredit2 = new Credit("5496198584584769", "Mastercard", 0121, 456,121.12);
+		testCredit1 = new Credit("4003830171874018", "Visa", 1123, 123,121);
+		testCredit2 = new Credit("5496198584584769", "Mastercard", 0121, 456,121);
 
 		testCreditCache.put(testCredit1.getCardNum(),testCredit1);
 		testCreditCache.put(testCredit2.getCardNum(),testCredit2);
@@ -88,8 +88,8 @@ public class CacheTests {
 	public void addToCacheTest() {
 		
 		User cachedUserTest = new User("Michael Myers", "HalloweenLuvr1031", "Iliketoslash00?!", "epichalloween@greatmovies.org", "123213223");
-		Bank cachedBankTest = new Bank("Walls Fargo",16.17,"4544125332323","011401533");
-		Credit cachedCreditTest = new Credit("4003846354018", "Visa", 1123, 123,555.55);
+		Bank cachedBankTest = new Bank("Walls Fargo",16,"4544125332323","011401533");
+		Credit cachedCreditTest = new Credit("4003846354018", "Visa", 1123, 123,555);
 		
 		cacheServiceUser.addToCache(cachedUserTest.getUsername(),cachedUserTest);
 		cacheServiceBank.addToCache(cachedBankTest.getAccountNumber(),cachedBankTest);
