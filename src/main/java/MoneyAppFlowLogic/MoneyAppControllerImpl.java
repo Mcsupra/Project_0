@@ -20,9 +20,9 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 	MoneyTransferServiceImpl remFunds = new MoneyTransferServiceImpl();
 	User currentUser = new User();
 	Bank currentBank = new Bank();
-	CacheServiceSIM<Bank> sentBank = new CacheServiceSIM<>();
+	CreateMoneyImpl sentBank = new CreateMoneyImpl();
 	Credit currentCredit = new Credit();
-	CacheServiceSIM<Credit> sentCredit = new CacheServiceSIM<>();
+	CreateMoneyImpl sentCredit = new CreateMoneyImpl();
 	String cardNum;
 	String acctNum;
 	
@@ -104,7 +104,7 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				scan.nextLine();
 				
 				try{
-					return(betweenUsers.SendMoney(currentCredit, sentCredit.retrieveItemFromCache(sendMoneyTo), amountToSend));
+					return(betweenUsers.SendMoney(currentCredit, sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyTo), amountToSend));
 				}catch (NullPointerException e) {
 					return false;
 				}
