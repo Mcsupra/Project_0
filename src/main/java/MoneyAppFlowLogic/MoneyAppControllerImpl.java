@@ -5,7 +5,6 @@ import java.util.Scanner;
 import MoneyAppPojos.Bank;
 import MoneyAppPojos.Credit;
 import MoneyAppPojos.User;
-import MoneyAppServices.CacheServiceSIM;
 import MoneyAppServices.CreateMoneyImpl;
 import MoneyAppServices.MoneyTransferServiceImpl;
 import MoneyAppServices.UserSignInServiceImpl;
@@ -96,15 +95,20 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				return (currentCredit != null);
 			
 			case 3:	
-				System.out.println("Who would you like to send money to?");
+				System.out.println("Who is sending the money?");
+				String sendMoneyFrom = scan.nextLine();
+				
+				System.out.println("Who is receiving the money?");
 				String sendMoneyTo = scan.nextLine();
 				
 				System.out.println("How much would you like to send?");
-				int amountToSend = scan.nextInt();
+				double amountToSend = scan.nextInt();
 				scan.nextLine();
 				
 				try{
-					return(betweenUsers.SendMoney(currentCredit, sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyTo), amountToSend));
+					System.out.println(sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom));
+					return(betweenUsers.SendMoney(sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom), 
+						   sentCredit.getCreditCache().retrieveItemFromCache(sendMoneyTo), amountToSend));
 				}catch (NullPointerException e) {
 					return false;
 				}
