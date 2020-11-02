@@ -58,7 +58,8 @@ public class MoneyAppDriver {
 			System.out.println("[3] Send money to another user");
 			System.out.println("[4] Send money to card");
 			System.out.println("[5] Send money to bank from card");
-			System.out.println("[6] Get current balance");
+			System.out.println("[6] Get current balance of card");
+			System.out.println("[7] Get current balance of bank");
 			System.out.println("[0] Exit");
 			decision = scan.nextInt();
 			
@@ -104,6 +105,18 @@ public class MoneyAppDriver {
 						System.out.println("Funds unsuccessfully withdrawn");
 					}
 					break;	
+				case 6:
+					if(!action.callMoneyTransferService(decision)) {
+						System.out.println("Balance could not be retrieved");
+					}
+				break;
+				case 7:
+					if(!action.callMoneyTransferService(decision)) {
+						System.out.println("Balance could not be retrieved");
+					}
+				break;
+				default:
+					break;
 			}
 		}while (decision != 0);
 	}

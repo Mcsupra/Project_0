@@ -106,13 +106,65 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				scan.nextLine();
 				
 				try{
-					System.out.println(cacheBankCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom));
 					return(betweenUsers.SendMoney(cacheBankCredit.getCreditCache().retrieveItemFromCache(sendMoneyFrom), 
 							cacheBankCredit.getCreditCache().retrieveItemFromCache(sendMoneyTo), amountToSend));
 				}catch (NullPointerException e) {
 					return false;
 				}
+			case 4:	
+				System.out.println("Select bank to withdraw from:");
+				String moneyFromBank = scan.nextLine();
 				
+				System.out.println("Select which card to send to");
+				String moneyToCard = scan.nextLine();
+				
+				System.out.println("How much would you like to withdraw?");
+				double amountToWithdraw= scan.nextInt();
+				scan.nextLine();
+				
+				try{
+					return(betweenUsers.AddFunds(cacheBankCredit.getBankCache().retrieveItemFromCache(moneyFromBank), 
+							cacheBankCredit.getCreditCache().retrieveItemFromCache(moneyToCard), amountToWithdraw));
+				}catch (NullPointerException e) {
+					return false;
+				}
+			case 5:	
+				System.out.println("Select card to withdraw from:");
+				String moneyFromCard = scan.nextLine();
+				
+				System.out.println("Select which bank to send to");
+				String moneyToBank= scan.nextLine();
+				
+				System.out.println("How much would you like to withdraw?");
+				double amountToDeposit= scan.nextInt();
+				scan.nextLine();
+				
+				try{
+					return(betweenUsers.AddFunds(cacheBankCredit.getBankCache().retrieveItemFromCache(moneyFromCard), 
+							cacheBankCredit.getCreditCache().retrieveItemFromCache(moneyToBank), amountToDeposit));
+				}catch (NullPointerException e) {
+					return false;
+				}
+			case 6:
+				System.out.println("Which card do you want to check the balance of?");
+				String creditBalance = scan.nextLine();
+				
+				if (cacheBankCredit.getCreditCache().retrieveItemFromCache(creditBalance)!=null) {
+					System.out.println(cacheBankCredit.getCreditCache().retrieveItemFromCache(creditBalance).getBalance());
+					return true;
+				}
+				else
+					return false;
+			case 7:
+				System.out.println("Which card do you want to check the balance of?");
+				String bankBalance = scan.nextLine();
+				
+				if (cacheBankCredit.getBankCache().retrieveItemFromCache(bankBalance)!=null) {
+					System.out.println(cacheBankCredit.getBankCache().retrieveItemFromCache(bankBalance).getCurrentBalance());
+					return true;
+				}
+				else
+					return false;	
 			default:
 				return false;
 		}
