@@ -5,6 +5,7 @@ import java.util.Scanner;
 import MoneyAppPojos.Bank;
 import MoneyAppPojos.Credit;
 import MoneyAppPojos.User;
+import MoneyAppServices.CacheServiceSIM;
 import MoneyAppServices.CreateMoneyImpl;
 import MoneyAppServices.MoneyTransferServiceImpl;
 import MoneyAppServices.UserSignInServiceImpl;
@@ -12,18 +13,17 @@ import MoneyAppServices.UserSignInServiceImpl;
 public class MoneyAppControllerImpl implements MoneyAppController  {
 	
 	UserSignInServiceImpl userSignInChoice = new UserSignInServiceImpl();
-	CreateMoneyImpl bankChoice = new CreateMoneyImpl();
-	CreateMoneyImpl creditChoice = new CreateMoneyImpl();
 	MoneyTransferServiceImpl betweenUsers = new MoneyTransferServiceImpl();
 	MoneyTransferServiceImpl addFunds = new MoneyTransferServiceImpl();
 	MoneyTransferServiceImpl remFunds = new MoneyTransferServiceImpl();
 	User currentUser = new User();
 	Bank currentBank = new Bank();
-	CreateMoneyImpl sentBank = new CreateMoneyImpl();
+	CacheServiceSIM<Bank> sentBank = new CacheServiceSIM<>();
 	Credit currentCredit = new Credit();
-	CreateMoneyImpl sentCredit = new CreateMoneyImpl();
+	CacheServiceSIM<Credit> sentCredit = new CacheServiceSIM<>();
 	String cardNum;
 	String acctNum;
+	CreateMoneyImpl cacheBankCredit = new CreateMoneyImpl(sentBank,sentCredit);
 	
 	private static Scanner scan = new Scanner(System.in);
 	
