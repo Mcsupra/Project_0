@@ -1,37 +1,37 @@
 package MoneyAppPojos;
 
 public class Credit {
-	private String cardName;
 	
 	private String cardNum;
 	
 	private String cardType;
 	
-	private String expirationDate;
+	private int expirationDate;
 	
 	private int CVV;
+	
+	private double balance;
+	
 
-	public Credit(String cardName, String cardNum, String cardType, String expirationDate, int cVV) {
+	
+
+	public Credit(String cardNum, String cardType, int expirationDate, int cVV, double balance) {
 		super();
-		this.cardName = cardName;
 		this.cardNum = cardNum;
 		this.cardType = cardType;
 		this.expirationDate = expirationDate;
-		CVV = cVV;
+		this.CVV = cVV;
+		this.balance = balance;
 	}
+
+
 
 	public Credit() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getCardName() {
-		return cardName;
-	}
 
-	public void setCardName(String cardName) {
-		this.cardName = cardName;
-	}
 
 	public String getCardNum() {
 		return cardNum;
@@ -49,11 +49,11 @@ public class Credit {
 		this.cardType = cardType;
 	}
 
-	public String getExpirationDate() {
+	public int getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(String expirationDate) {
+	public void setExpirationDate(int expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 
@@ -64,16 +64,26 @@ public class Credit {
 	public void setCVV(int cVV) {
 		CVV = cVV;
 	}
+	
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + CVV;
-		result = prime * result + ((cardName == null) ? 0 : cardName.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(balance);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((cardNum == null) ? 0 : cardNum.hashCode());
 		result = prime * result + ((cardType == null) ? 0 : cardType.hashCode());
-		result = prime * result + ((expirationDate == null) ? 0 : expirationDate.hashCode());
+		result = prime * result + expirationDate;
 		return result;
 	}
 
@@ -88,10 +98,7 @@ public class Credit {
 		Credit other = (Credit) obj;
 		if (CVV != other.CVV)
 			return false;
-		if (cardName == null) {
-			if (other.cardName != null)
-				return false;
-		} else if (!cardName.equals(other.cardName))
+		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
 			return false;
 		if (cardNum == null) {
 			if (other.cardNum != null)
@@ -103,18 +110,15 @@ public class Credit {
 				return false;
 		} else if (!cardType.equals(other.cardType))
 			return false;
-		if (expirationDate == null) {
-			if (other.expirationDate != null)
-				return false;
-		} else if (!expirationDate.equals(other.expirationDate))
+		if (expirationDate != other.expirationDate)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Credit [cardName=" + cardName + ", cardNum=" + cardNum + ", cardType=" + cardType + ", expirationDate="
-				+ expirationDate + ", CVV=" + CVV + "]";
+		return "Credit [cardNum=" + cardNum + ", cardType=" + cardType + ", expirationDate=" + expirationDate + ", CVV="
+				+ CVV + ", balance=" + balance + "]";
 	}
 	
 	

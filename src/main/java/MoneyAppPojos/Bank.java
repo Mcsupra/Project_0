@@ -4,13 +4,13 @@ public class Bank {
 	
 	private String bankName;
 	
-	private long currentBalance;
+	private double currentBalance;
 	
 	private String accountNumber;
 	
 	private String routingNumber;
 
-	public Bank(String bankName, long currentBalance, String accountNumber, String routingNumber) {
+	public Bank(String bankName, double currentBalance, String accountNumber, String routingNumber) {
 		super();
 		this.bankName = bankName;
 		this.currentBalance = currentBalance;
@@ -31,7 +31,7 @@ public class Bank {
 		this.bankName = bankName;
 	}
 
-	public long getCurrentBalance() {
+	public double getCurrentBalance() {
 		return currentBalance;
 	}
 
@@ -61,7 +61,9 @@ public class Bank {
 		int result = 1;
 		result = prime * result + ((accountNumber == null) ? 0 : accountNumber.hashCode());
 		result = prime * result + ((bankName == null) ? 0 : bankName.hashCode());
-		result = prime * result + (int) (currentBalance ^ (currentBalance >>> 32));
+		long temp;
+		temp = Double.doubleToLongBits(currentBalance);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((routingNumber == null) ? 0 : routingNumber.hashCode());
 		return result;
 	}
@@ -85,7 +87,7 @@ public class Bank {
 				return false;
 		} else if (!bankName.equals(other.bankName))
 			return false;
-		if (currentBalance != other.currentBalance)
+		if (Double.doubleToLongBits(currentBalance) != Double.doubleToLongBits(other.currentBalance))
 			return false;
 		if (routingNumber == null) {
 			if (other.routingNumber != null)
