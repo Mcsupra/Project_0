@@ -1,11 +1,15 @@
 package MoneyAppServices;
 
 
+import org.apache.log4j.Logger;
+
 import MoneyAppPojos.User;
+
 
 public class UserSignInServiceImpl implements UserSignIn{
 	
 	private CacheServiceSIM<User> userCache = new CacheServiceSIM<User>();
+	private static Logger log = Logger.getLogger("UserSignInService");
 	
 	public UserSignInServiceImpl() {
 		super();
@@ -22,43 +26,43 @@ public class UserSignInServiceImpl implements UserSignIn{
 	}
 
 
-
-
+	
+	/**
+	 * Creates a user obj and stores it in the the user cache
+	 * String firstNameLastName, String username, String password, String email, String phoneNum
+	 * If username already exists, don't add it
+	 * @return User
+	 */
 	@Override
 	public User createUser(String firstNameLastName, String username, String password, String email, String phoneNum) {
 		
 		User newUser = new User(firstNameLastName, username, password, email, phoneNum);
-		//adding user object to cache
-		userCache.addToCache(username, newUser);
+		if (!userCache.getCache().containsKey(username)) {
+			userCache.addToCache(username, newUser);
+			return newUser;
+		}
+		else {
+			return null;
+		}
 		
-		return newUser;
+		
 	}
 
-
+	/**
+	 * Checks for the username in the user cache and compares password
+	 * String username, String password
+	 * @return boolean
+	 */
 	@Override
 	public boolean signIn(String username, String password) {
-		// write code that confirms a user identity
-		//		Check List/Set for a username Compare that username to the password value
 		
 		try {
 			return(userCache.retrieveItemFromCache(username).getPassword().equals(password));
 			
 		} catch (NullPointerException e) {
+			log.error("NULLpointE");
 			return false;
 		}
 	}
-	
-	
-
-	/*@Override
-	public void signOut() {
-		// TODO exit the program
-		//  	Press '0' exit out of loop
-		
-	}*/
-
-
-	
-	
 	 
 }

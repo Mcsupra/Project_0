@@ -12,7 +12,14 @@ public class Credit {
 	
 	private double balance;
 
-
+	/**
+	 * Creation of credit obj
+	 * @param cardNum
+	 * @param cardType
+	 * @param expirationDate
+	 * @param cVV
+	 * @param balance
+	 */
 	public Credit(String cardNum, String cardType, int expirationDate, int cVV, double balance) {
 		super();
 		this.cardNum = cardNum;

@@ -4,7 +4,12 @@ import MoneyAppPojos.Bank;
 import MoneyAppPojos.Credit;
 
 public class MoneyTransferServiceImpl implements MoneyTransferService{
-
+	
+	/**
+	 * Transfers money between credit objs
+	 * Credit fromUserCredit, Credit toUserCredit, double amount
+	 * @return boolean
+	 */
 	@Override
 	public boolean SendMoney(Credit fromUserCredit, Credit toUserCredit, double amount) {
 		if (fromUserCredit.getBalance()>amount) {
@@ -16,9 +21,13 @@ public class MoneyTransferServiceImpl implements MoneyTransferService{
 			return false;
 		}
 	}
-
-	@Override
 	
+	/**
+	 * Transfers money from bank to credit obj
+	 * Bank fromBankObj, Credit toCardObj, double amount
+	 * @return boolean
+	 */
+	@Override
 	public boolean AddFunds(Bank fromBankObj, Credit toCardObj, double amount) {
 		if (fromBankObj.getCurrentBalance()>amount) {
 			fromBankObj.setCurrentBalance(fromBankObj.getCurrentBalance()-amount);
@@ -30,6 +39,11 @@ public class MoneyTransferServiceImpl implements MoneyTransferService{
 		}
 	}
 
+	/**
+	 * Transfers money from credit to bank obj
+	 * Credit fromUserCard, Bank toUserBank, double amount
+	 * @return boolean
+	 */
 	@Override
 	public boolean Removefunds(Credit fromUserCard, Bank toUserBank, double amount) {
 		if (fromUserCard.getBalance()>amount) {

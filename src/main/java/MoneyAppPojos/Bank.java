@@ -11,7 +11,14 @@ public class Bank {
 	private String routingNumber;
 
 	
-
+	/**
+	 * Creation of bank obj
+	 * @param bankName
+	 * @param currentBalance
+	 * @param accountNumber
+	 * @param routingNumber
+	 */
+	
 	public Bank(String bankName, double currentBalance, String accountNumber, String routingNumber) {
 		super();
 		this.bankName = bankName;

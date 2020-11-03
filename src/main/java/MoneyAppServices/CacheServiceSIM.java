@@ -9,9 +9,10 @@ import java.util.Map;
 
 public class CacheServiceSIM<T> implements CacheService<T> {
 	
+	/**
+	 * Creation of generic map to store user,bank,card objs
+	 */
 	private Map<String, T> cache = new HashMap<String,T>();
-	
-	
 
 	public CacheServiceSIM(Map<String,T> cache) {
 		super();
@@ -34,14 +35,18 @@ public class CacheServiceSIM<T> implements CacheService<T> {
 		this.cache = cache;
 	}
 
-
+	/**
+	 * Generic method to call to add type to cache
+	 */
 	@Override
 	public void addToCache(String key, T obj) {
-		//Adds an obj to the cache of which ever type
 		cache.put(key, obj);
 	}
 
-
+	/**
+	 * Given map key, return type
+	 * @return T
+	 */
 	@Override
 	public T retrieveItemFromCache(String key) {
 		
@@ -50,15 +55,5 @@ public class CacheServiceSIM<T> implements CacheService<T> {
 		else
 			return null;		
 	}
-
-
-
-
-	/*@Override
-	public void updateFromCache(String field) {
-		// TODO Implement code to change certain fields of object T
-		//		.getEmail = .setEmail for example
-	}*/
-
 	 
 }

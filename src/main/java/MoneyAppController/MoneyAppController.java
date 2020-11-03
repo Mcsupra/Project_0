@@ -1,4 +1,4 @@
-package MoneyAppFlowLogic;
+package MoneyAppController;
 
 public interface MoneyAppController {
 	

@@ -17,6 +17,14 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Creation of user obj
+	 * @param firstNameLastName
+	 * @param username
+	 * @param password
+	 * @param email
+	 * @param phoneNum
+	 */
 	public User( String firstNameLastName,String username, String password, String email, String phoneNum) {
 		this();
 		this.username = username;

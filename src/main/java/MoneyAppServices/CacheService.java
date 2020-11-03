@@ -8,7 +8,5 @@ public interface CacheService <T> {
 	
 	public T retrieveItemFromCache(String key);
 	
-	//public void updateFromCache(String field);
-	
 
 }

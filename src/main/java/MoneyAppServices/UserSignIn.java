@@ -12,9 +12,5 @@ public interface UserSignIn {
 	
 	//Sign in user if password is successful
 	public boolean signIn(String username, String password);
-	
-	/*Sign out
-	public void signOut();*/
-	
 
 }
