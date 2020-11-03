@@ -56,7 +56,7 @@ public class MoneyAppDriver {
 						}
 						break;
 					case 0:
-						//Terminate the program
+						decision = -1;
 						break;
 					default:
 						System.out.println("Invalid choice");
@@ -66,7 +66,7 @@ public class MoneyAppDriver {
 		} while (decision != 0);
 		
 		
-		if(decision != 0) {
+		if(decision != -1) {
 			do {
 				//Maintain loop state
 				decision = -1;
