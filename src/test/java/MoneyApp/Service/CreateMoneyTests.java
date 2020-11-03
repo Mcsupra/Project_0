@@ -49,7 +49,7 @@ public class CreateMoneyTests {
 	public void createCreditTest() {
 		Credit creditRef = new Credit("4003846354018", "Visa", 1123, 123,100);
 		Credit creditTest = testObj.createCredit("4003846354018", "Visa", 1123, 123,100);
-		
+		//Test
 		assertEquals(true,creditTest.equals(creditRef));
 		
 	}
