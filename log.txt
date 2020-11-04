@@ -1,2 +1,28 @@
 2020-11-04 09:06:45 INFO  Driver:25 - Program has started
 2020-11-04 09:07:17 INFO  Driver:49 - Successful User obj creation
+2020-11-04 09:59:37 INFO  Driver:25 - Program has started
+2020-11-04 09:59:48 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:13:19 INFO  Driver:25 - Program has started
+2020-11-04 10:13:31 INFO  Driver:25 - Program has started
+2020-11-04 10:13:46 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:14:23 INFO  Driver:25 - Program has started
+2020-11-04 10:14:29 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:14:45 INFO  Driver:25 - Program has started
+2020-11-04 10:14:54 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:15:27 INFO  Driver:25 - Program has started
+2020-11-04 10:15:43 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:18:43 INFO  Driver:25 - Program has started
+2020-11-04 10:19:12 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:54:47 INFO  Driver:25 - Program has started
+2020-11-04 10:54:53 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:55:19 INFO  Driver:25 - Program has started
+2020-11-04 10:55:24 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:56:29 INFO  Driver:25 - Program has started
+2020-11-04 10:56:37 INFO  Driver:49 - Successful User obj creation
+2020-11-04 10:58:05 INFO  Driver:25 - Program has started
+2020-11-04 10:58:13 INFO  Driver:49 - Successful User obj creation
+2020-11-04 11:01:24 INFO  Driver:25 - Program has started
+2020-11-04 11:01:29 INFO  Driver:49 - Successful User obj creation
+2020-11-04 11:01:54 INFO  Driver:25 - Program has started
+2020-11-04 11:02:03 INFO  Driver:49 - Successful User obj creation
+2020-11-04 11:02:07 ERROR UserSignInService:63 - NULLpointE

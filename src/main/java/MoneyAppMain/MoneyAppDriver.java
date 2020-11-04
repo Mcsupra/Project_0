@@ -82,7 +82,7 @@ public class MoneyAppDriver {
 					System.out.println("What would you like to do?");
 					System.out.println("[1] Add a bank");
 					System.out.println("[2] Add a credit card");
-					System.out.println("[3] Send money to another user");
+					System.out.println("[3] Send money to another user TODO");
 					System.out.println("[4] Send money to card");
 					System.out.println("[5] Send money to bank from card");
 					System.out.println("[6] Get current balance of card");

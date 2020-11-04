@@ -96,8 +96,54 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 			case 2:
 				System.out.println("What type of card is this?");
 				String cardType = scan.nextLine();
-				System.out.println("Please enter your card number:");
-				cardNum = scan.nextLine();
+				int count = 0;
+				int success = -1;
+				do {
+					if (count > 0) {
+						System.out.println("Please enter a valid card number");
+					}
+					count++;
+					System.out.println("Please enter your card number:");
+					cardNum = scan.nextLine();	
+					
+					int type = LuhnsFull.LuhnsAlgo(cardNum);
+				
+					if (type == 34 || type == 37) //Checking first two digits vs known card numbers
+		            {
+		                if(cardType.equals("AMEX")) {
+		                	success = 1;
+		                }
+		                else {
+		                	System.out.println(cardType + " is not an AMEX");
+		                }
+		            }   
+		        
+		            else if (type > 50 && type < 56) //Checking first two digits vs known card numbers
+		            {
+		            	 if(cardType.equals("MASTERCARD")) {
+		            		 success = 1;
+		            	 }
+		            	 else {
+		            		 System.out.println(cardType + " is not a MASTERCARD");
+		            	 }
+		            }      
+		        
+		            else if (type > 39 && type < 50) //Checking first two digits vs known card numbers
+		            {	
+		            	 if(cardType.equals("VISA")) {
+		            		 success = 1;
+		            	 }
+		            	 else {
+		            		 System.out.println(cardType + " is not an VISA");
+		            	 }
+		            }
+		            else
+		            {
+		            	 cardType.equals("INVALID"); //Passes length AND check sum but first 2 digits are erroneous
+		            }
+					
+				}while (success != 1);
+				
 				System.out.println("Please enter the expiration date:");
 				int expDate = scan.nextInt();
 				scan.nextLine();
@@ -199,4 +245,5 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				return false;
 		}
 	}
+	
 }
