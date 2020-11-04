@@ -5,9 +5,13 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import MoneyAppController.MoneyAppControllerImpl;
+//import MoneyAppServices.UserSignInServiceImpl;
+//import io.javalin.Javalin;
 
 public class MoneyAppDriver {
 	
+	//private static UserSignInServiceImpl appController = new UserSignInServiceImpl();
+
 	private static Scanner scan = new Scanner(System.in);
 	private static MoneyAppControllerImpl action = new MoneyAppControllerImpl();
 	
@@ -15,6 +19,9 @@ public class MoneyAppDriver {
 	
 	public static void main(String args[]) {
 		
+		//public Javalin app = Javalin.create().start(9090); //sets up and starts our server
+		//app.post("/createGuest", ctx -> appController.createUser(ctx));
+	
 		log.info("Program has started");
 		int decision;
 		

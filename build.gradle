@@ -32,4 +32,10 @@ dependencies {
     
     // https://mvnrepository.com/artifact/org.mockito/mockito-all
 	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+	
+	// https://mvnrepository.com/artifact/io.javalin/javalin
+	compile group: 'io.javalin', name: 'javalin', version: '3.11.2'
+
+	// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
 }
