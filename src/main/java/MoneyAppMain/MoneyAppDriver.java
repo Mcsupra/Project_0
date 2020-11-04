@@ -70,10 +70,10 @@ public class MoneyAppDriver {
 						break;
 					
 				}
-		} while (decision != 0);
+		} while (decision != -1 && decision != 0);
 		
 		
-		if(decision != -1) {
+		if(decision == 0) {
 			do {
 				//Maintain loop state
 				decision = -1;
