@@ -6,19 +6,21 @@ import org.apache.log4j.Logger;
 
 import MoneyAppPojos.Bank;
 import MoneyAppPojos.Credit;
-import MoneyAppPojos.User;
+import MoneyAppPojos.Customer;
 import MoneyAppServices.CacheServiceSIM;
 import MoneyAppServices.CreateMoneyImpl;
 import MoneyAppServices.MoneyTransferServiceImpl;
+import MoneyAppServices.UserSignIn;
 import MoneyAppServices.UserSignInServiceImpl;
 
 public class MoneyAppControllerImpl implements MoneyAppController  {
 	
-	UserSignInServiceImpl userSignInChoice = new UserSignInServiceImpl();
+	UserSignIn userSignInChoice = new UserSignInServiceImpl();
+	//UserSignIn userSignInChoice = new UserSignInDatabse();
 	MoneyTransferServiceImpl betweenUsers = new MoneyTransferServiceImpl();
 	MoneyTransferServiceImpl addFunds = new MoneyTransferServiceImpl();
 	MoneyTransferServiceImpl remFunds = new MoneyTransferServiceImpl();
-	User currentUser = new User();
+	Customer currentUser = new Customer();
 	Bank currentBank = new Bank();
 	CacheServiceSIM<Bank> sentBank = new CacheServiceSIM<>();
 	Credit currentCredit = new Credit();
@@ -43,8 +45,10 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 		
 			case 1:
 			//User wants to create a new user
-				System.out.println("What is your full name?");
-				String name = scan.nextLine();
+				System.out.println("What is your first name?");
+				String firstName = scan.nextLine();
+				System.out.println("What is your first name?");
+				String lastName = scan.nextLine();
 				System.out.println("What do you want your username to be?");
 				String username = scan.nextLine();
 				System.out.println("What do you want your password to be?");
@@ -55,7 +59,7 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				String phoneNumber = scan.nextLine();
 				
 				//Returns true is user is successfully created with params
-				return(userSignInChoice.createUser(name, username, password, email, phoneNumber)!=null);
+				return(userSignInChoice.createUser(firstName,lastName, username, password, email, phoneNumber)!=null);
 				
 				//Returns true if the username and password pair exists in the map
 			case 2:

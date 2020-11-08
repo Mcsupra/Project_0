@@ -3,12 +3,12 @@ package MoneyAppServices;
 
 import org.apache.log4j.Logger;
 
-import MoneyAppPojos.User;
+import MoneyAppPojos.Customer;
 
 
 public class UserSignInServiceImpl implements UserSignIn{
 	
-	private CacheServiceSIM<User> userCache = new CacheServiceSIM<User>();
+	private CacheServiceSIM<Customer> userCache = new CacheServiceSIM<Customer>();
 	private static Logger log = Logger.getLogger("UserSignInService");
 	
 	public UserSignInServiceImpl() {
@@ -16,12 +16,12 @@ public class UserSignInServiceImpl implements UserSignIn{
 	}
 		
 
-	public CacheServiceSIM<User> getUserCache() {
+	public CacheServiceSIM<Customer> getUserCache() {
 		return userCache;
 	}
 
 
-	public void setUserCache(CacheServiceSIM<User> userCache) {
+	public void setUserCache(CacheServiceSIM<Customer> userCache) {
 		this.userCache = userCache;
 	}
 
@@ -34,11 +34,12 @@ public class UserSignInServiceImpl implements UserSignIn{
 	 * @return User
 	 */
 	@Override
-	public User createUser(String firstNameLastName, String username, String password, String email, String phoneNum) {
+	public Customer createUser(String firstName, String lastName, String username, String password, String email, String phoneNum) {
 		
-		User newUser = new User(firstNameLastName, username, password, email, phoneNum);
+		Customer newUser = new Customer(firstName, lastName, username, password, email, phoneNum);
 		if (!userCache.getCache().containsKey(username)) {
 			userCache.addToCache(username, newUser);
+			
 			return newUser;
 		}
 		else {

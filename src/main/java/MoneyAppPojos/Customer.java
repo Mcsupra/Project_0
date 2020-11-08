@@ -1,6 +1,6 @@
 package MoneyAppPojos;
 
-public class User {
+public class Customer {
 	
 	private String username;
 	
@@ -10,9 +10,11 @@ public class User {
 	
 	private String phoneNum;
 	
-	private String firstNameLastName;
+	private String firstName;
+	
+	private String lastName;
 
-	public User() {
+	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -25,18 +27,18 @@ public class User {
 	 * @param email
 	 * @param phoneNum
 	 */
-	public User( String firstNameLastName,String username, String password, String email, String phoneNum) {
-		this();
+	public String getUsername() {
+		return username;
+	}
+
+	public Customer(String username, String password, String email, String phoneNum, String firstName, String lastName) {
+		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.phoneNum = phoneNum;
-		this.firstNameLastName = firstNameLastName;
-	}
-
-
-	public String getUsername() {
-		return username;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public void setUsername(String username) {
@@ -67,12 +69,22 @@ public class User {
 		this.phoneNum = phoneNum;
 	}
 	
-	public String getFirstNameLastName() {
-		return firstNameLastName;
+	
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstNameLastName(String firstNameLastName) {
-		this.firstNameLastName = firstNameLastName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Override
@@ -80,7 +92,8 @@ public class User {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstNameLastName == null) ? 0 : firstNameLastName.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phoneNum == null) ? 0 : phoneNum.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -95,16 +108,21 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Customer other = (Customer) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (firstNameLastName == null) {
-			if (other.firstNameLastName != null)
+		if (firstName == null) {
+			if (other.firstName != null)
 				return false;
-		} else if (!firstNameLastName.equals(other.firstNameLastName))
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -127,7 +145,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + ", phoneNum=" + phoneNum
-				+ ", firstNameLastName=" + firstNameLastName + "]";
+				+ ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 	
 	

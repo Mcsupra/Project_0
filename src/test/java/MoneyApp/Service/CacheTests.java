@@ -13,21 +13,21 @@ import org.junit.Test;
 
 import MoneyAppPojos.Bank;
 import MoneyAppPojos.Credit;
-import MoneyAppPojos.User;
+import MoneyAppPojos.Customer;
 import MoneyAppServices.CacheServiceSIM;
 
 public class CacheTests {
 	
-	private CacheServiceSIM<User> cacheServiceUser;
+	private CacheServiceSIM<Customer> cacheServiceUser;
 	private CacheServiceSIM<Bank> cacheServiceBank;
 	private CacheServiceSIM<Credit> cacheServiceCredit;
 	
-	static private  Map<String,User> testUserCache;
+	static private  Map<String,Customer> testUserCache;
 	static private  Map<String,Bank> testBankCache;
 	static private  Map<String,Credit> testCreditCache;
 	
-	private User testUser1;
-	private User testUser2;
+	private Customer testUser1;
+	private Customer testUser2;
 	
 	private Bank testBank1;
 	private Bank testBank2;
@@ -49,14 +49,14 @@ public class CacheTests {
 	@Before
 	public void setUp() throws Exception {
 		
-		testUser1 = new User("Michael Zide", "Mzide", "rEaLlYcLeVeR", "myemail24@gmail.com", "1234567890");
-		testUser2 = new User("Patrick Robertson", "bmxer4life", "HelloWorldhehe!!", "bmxer4life@hotmail.com", "(465)113-1656");
+		testUser1 = new Customer("Michael", "Zide", "Mzide", "rEaLlYcLeVeR", "myemail24@gmail.com", "1234567890");
+		testUser2 = new Customer("Patrick", "Robertson", "bmxer4life", "HelloWorldhehe!!", "bmxer4life@hotmail.com", "(465)113-1656");
 
 		testUserCache.put(testUser1.getUsername(),testUser1);
 		testUserCache.put(testUser2.getUsername(),testUser2);
 		
 		
-		cacheServiceUser = new CacheServiceSIM<User>(testUserCache);
+		cacheServiceUser = new CacheServiceSIM<Customer>(testUserCache);
 		
 		testBank1 = new Bank("BofA",1212,"45485672634587123","091000019");
 		testBank2 = new Bank("Walls Fargo",-10,"45444163123","011401533");
@@ -85,7 +85,7 @@ public class CacheTests {
 	@Test
 	public void addToCacheTest() {
 		
-		User cachedUserTest = new User("Michael Myers", "HalloweenLuvr1031", "Iliketoslash00?!", "epichalloween@greatmovies.org", "123213223");
+		Customer cachedUserTest = new Customer("Michael", "Myers", "HalloweenLuvr1031", "Iliketoslash00?!", "epichalloween@greatmovies.org", "123213223");
 		Bank cachedBankTest = new Bank("Walls Fargo",16,"4544125332323","011401533");
 		Credit cachedCreditTest = new Credit("4003846354018", "Visa", 1123, 123,555);
 		
@@ -102,7 +102,7 @@ public class CacheTests {
 	public void retrieveItemFromCacheTest() {
 		
 		String testUsername = testUser1.getUsername();
-		User retrievedUser =  cacheServiceUser.retrieveItemFromCache(testUsername);
+		Customer retrievedUser =  cacheServiceUser.retrieveItemFromCache(testUsername);
 		
 		assertEquals("If username exists in cache, return true",true, testUser1.equals(retrievedUser));
 	}
