@@ -1,5 +1,6 @@
 package MoneyAppDao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class UserDaoPostgres implements UserDao {
 		}
 		
 		@Override
-		public void createCustomer(Customer user) throws SQLException {
+		public boolean createCustomer(Customer user) throws SQLException {
 			
 			String sql = "insert into customer (username,passphrase,email,phone_num,first_name,last_name) "
 					+ "values(?,?,?,?,?,?);";
@@ -35,35 +36,39 @@ public class UserDaoPostgres implements UserDao {
 					statement.setString(6,user.getLastName());
 					statement.executeUpdate();
 					
+					return true;
 			} catch (SQLException e) {
-						// TODO Add log
-						e.printStackTrace();
+					// TODO Add log
+					e.printStackTrace();
+					return false;		
 			}
-					
 		}
 	
 		@Override
 		public Customer readCustomer(String username) throws SQLException {
 			
 			
-			String sql = "select * from customer where username = ?";
-			
+			String sql = "select * from customer where username = ?;";
 
-			try {
-					statement = connUtil.createConnection().prepareStatement(sql);
+			try(Connection conn = connUtil.createConnection()) {
+					
+					statement = conn.prepareStatement(sql);
 					statement.setString(1, username);
 					ResultSet rs = statement.executeQuery();
 					rs.next();
+					
 					Customer returnedCustomer = new Customer(rs.getString(1),
 															 rs.getString(2),
 															 rs.getString(3),
 															 rs.getString(4),
 															 rs.getString(5),
 															 rs.getString(6));
+					
 					return returnedCustomer;
 					
 			}catch (SQLException e) {
 				//TODO Add Logger
+				
 				return null;
 			}
 			
@@ -96,7 +101,7 @@ public class UserDaoPostgres implements UserDao {
 		}
 	
 		@Override
-		public void updateCustomer(Customer user) {
+		public boolean updateCustomer(Customer user) {
 			
 			try { //Prepare prepared statement
 	            String sql = "UPDATE customer SET passphrase = ?, " 
@@ -112,14 +117,15 @@ public class UserDaoPostgres implements UserDao {
 	            statement.setString(6, user.getUsername());
 	            
 	            statement.executeUpdate();
-
+	            return true;
 	        } catch (SQLException e) {
 				//TODO Add Logger
+	        	return false;
 			}
 		}
 	
 		@Override
-		public void deleteCustomer(String username) {
+		public boolean deleteCustomer(String username) {
 			
 			String sql = "delete from customer where username = ?;";
 			
@@ -127,8 +133,10 @@ public class UserDaoPostgres implements UserDao {
 				statement = connUtil.createConnection().prepareStatement(sql);
 				statement.setString(1, username);
 				statement.executeUpdate();
+				return true;
 			}catch (SQLException e) {
 				//TODO Add Logger
+				return false;
 			}
 		}
 

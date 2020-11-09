@@ -39,7 +39,6 @@ public class CreditDaoPostgres implements CreditDao {
 				
 		} catch (SQLException e) {
 					// TODO Add log
-					e.printStackTrace();
 		}
 		
 	}
@@ -51,6 +50,7 @@ public class CreditDaoPostgres implements CreditDao {
 		List<Credit> allCards = new ArrayList<>();
 		
 		try {
+				
 				statement = connUtil.createConnection().prepareStatement(sql);
 				statement.setString(1, currentUser.getUsername());
 				ResultSet rs = statement.executeQuery();
