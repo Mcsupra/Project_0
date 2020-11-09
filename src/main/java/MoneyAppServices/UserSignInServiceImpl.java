@@ -34,16 +34,16 @@ public class UserSignInServiceImpl implements UserSignIn{
 	 * @return User
 	 */
 	@Override
-	public Customer createUser(String firstName, String lastName, String username, String password, String email, String phoneNum) {
+	public boolean createUser(String firstName, String lastName, String username, String password, String email, String phoneNum) {
 		
 		Customer newUser = new Customer(firstName, lastName, username, password, email, phoneNum);
 		if (!userCache.getCache().containsKey(username)) {
 			userCache.addToCache(username, newUser);
 			
-			return newUser;
+			return true;
 		}
 		else {
-			return null;
+			return false;
 		}
 		
 		
@@ -55,15 +55,17 @@ public class UserSignInServiceImpl implements UserSignIn{
 	 * @return boolean
 	 */
 	@Override
-	public boolean signIn(String username, String password) {
+	public int signIn(String username, String password) {
 		
 		try {
-			return(userCache.retrieveItemFromCache(username).getPassword().equals(password));
+			if(userCache.retrieveItemFromCache(username).getPassword().equals(password))
+					return 1;
 			
 		} catch (NullPointerException e) {
 			log.error("NULLpointE");
-			return false;
+			
 		}
+		return 0;
 	}
 	 
 }

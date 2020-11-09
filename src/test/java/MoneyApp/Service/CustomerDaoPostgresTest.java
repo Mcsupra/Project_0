@@ -3,7 +3,7 @@ package MoneyApp.Service;
 
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -12,7 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -25,7 +26,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import ConnectionUtil.ConnectionUtil;
-import MoneyAppDoa.UserDaoPostgres;
+import MoneyAppDao.UserDaoPostgres;
 import MoneyAppPojos.Customer;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -60,6 +61,8 @@ public class CustomerDaoPostgresTest {
 		
 		realConnection = new ConnectionUtil().createConnection();
 		testUser = new Customer("gobbleking","Notmydrumstick","giblets@turkeytownnet.com","9018675309","Turkey","McDurkey");
+		
+		
 	}
 
 	@After
@@ -104,7 +107,7 @@ public class CustomerDaoPostgresTest {
 				stmt = realConnection.prepareStatement("delete from customer where first_name = 'Turkey' AND last_name = 'McDurkey'");
 				stmt.executeUpdate();
 			}catch(SQLException e) {
-				fail("Error: Could not remove added player");
+				fail("Error: Could not remove added customer");
 			}
 		}	
 		
@@ -143,7 +146,7 @@ public class CustomerDaoPostgresTest {
 				stmt = realConnection.prepareStatement("delete from customer where first_name = 'Turkey' AND last_name = 'McDurkey'");
 				stmt.executeUpdate();
 			}catch(SQLException e) {
-				fail("Error: Could not remove added player");
+				fail("Error: Could not remove added customer");
 			}
 		}	
 		
@@ -152,16 +155,18 @@ public class CustomerDaoPostgresTest {
 	@Test
 	public void ReadAllCustomerTest() throws SQLException {
 		
+		List<Customer> testList= new ArrayList<>(); 
+		
 		//Baseline of test is number in table
 		String sql = "select count(*) from customer";
 		int num_in_table = -1;
-		System.out.println(num_in_table);
+
 		try {
 			stmt = realConnection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			num_in_table = rs.getInt(1);
-			System.out.println(num_in_table);
+			//TODO add log
 		}catch (SQLException e) {
 			System.out.println("SQLException thrown: " + e.toString());
 		}
@@ -177,12 +182,20 @@ public class CustomerDaoPostgresTest {
 		}
 		
 		try {
+			testList = userDao.readAllCustomers();
 			
-			Customer testCustomer = userDao.readCustomer(testUser.getUsername());
-			verify(spy).setString(1, testUser.getUsername());
 			verify(spy).executeQuery();
-			
-			assertEquals(true, testCustomer.equals(testUser));
+			if (testList.size() != num_in_table) {
+				fail("Error: Queried data does not match current DB config");
+			}
+				
+			for (Customer c: testList) {
+				assertFalse("Non-nullable username is null","".equals(c.getUsername()));
+				assertFalse("Non-nullable passphrase is null","".equals(c.getPassword()));
+				assertFalse("Non-nullable first_name is null","".equals(c.getFirstName()));
+				assertFalse("Non-nullable last_name is null","".equals(c.getLastName()));
+			}
+
 			
 		}catch(SQLException e) {
 			fail("Exception thrown: " + e);
@@ -190,6 +203,102 @@ public class CustomerDaoPostgresTest {
 		
 	}
 	
+	@Test
+	public void UpdateCustomerTest() throws SQLException {
+		
+		String sql = "insert into customer(username,passphrase,email,phone_num,first_name,last_name)"
+				+" values ('gobbleking','Notmydrumstick','giblets@turkeytownnet.com','9018675309','Turkey','McDurkey');";
+		
+		stmt = realConnection.prepareStatement(sql);
+		stmt.executeUpdate();
+		
+		//Prepared SQL statement
+		sql = "UPDATE customer SET passphrase = ?, " 
+    			+ "email = ?, phone_num = ?, first_name = ?, last_name = ? "
+    			+ "WHERE username = ?;";
+		
+		try {
+			preparedHelper(sql);
+		} catch (SQLException e) {
+			fail("SQLException thrown: " + e.toString());
+		}
+		
+		try {
+			testUser.setPassword("ChristmasistheBest!");
+			testUser.setPhoneNum("9017573212");
+			testUser.setEmail("SantaClaus@northpole.org");
+			testUser.setFirstName("Kris");
+			testUser.setLastName("Kringle");
+			
+			userDao.updateCustomer(testUser);
+			
+			verify(spy).setString(1, testUser.getPassword());
+			verify(spy).setString(2, testUser.getEmail());
+			verify(spy).setString(3, testUser.getPhoneNum());
+			verify(spy).setString(4, testUser.getFirstName());
+			verify(spy).setString(5, testUser.getLastName());
+			verify(spy).setString(6, testUser.getUsername());
+			
+			verify(spy).executeUpdate();
+			
+			//Pull modified customer object from database for comparison
+			stmt = realConnection.prepareStatement("SELECT * FROM customer WHERE username = ?;");
+			stmt.setString(1, testUser.getUsername());
+			ResultSet rs = stmt.executeQuery();
+			
+			rs.next();
+			Customer customerMod = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+
+			assertEquals("Database object does not match as modified", testUser, customerMod);
+			
+		}catch(SQLException e) {
+			fail("SQLException thrown: " + e.toString());
+		}finally {
+			try {
+				stmt = realConnection.prepareStatement("delete from customer where username = 'gobbleking'");
+				stmt.executeUpdate();
+			}catch(SQLException e) {
+				fail("Error: Could not remove added customer");
+			}
+		}	
+
+	}
+	
+	@Test
+	public void DeleteCustomerTest() throws SQLException {
+		
+		String sql = "insert into customer(username,passphrase,email,phone_num,first_name,last_name)"
+				+" values ('gobbleking','Notmydrumstick','giblets@turkeytownnet.com','9018675309','Turkey','McDurkey');";
+		
+		stmt = realConnection.prepareStatement(sql);
+		stmt.executeUpdate();
+		
+		//Prepared SQL Statement
+		sql = "delete from customer where username = ?;";
+		
+		try {
+			preparedHelper(sql);
+		}catch(SQLException e) {
+			fail("SQLException thrown: " + e.toString());
+		}
+		
+		
+		
+		try {
+			userDao.deleteCustomer(testUser.getUsername());
+			
+			verify(spy).setString(1, testUser.getUsername());
+			verify(spy).executeUpdate();
+			
+			stmt = realConnection.prepareStatement(sql);
+			stmt.setString(1, testUser.getUsername());
+			assertEquals("Object was not deleted properly", 0, stmt.executeUpdate());
+			
+		}catch(SQLException e) {
+			fail("Exception thrown: " + e);
+		}
+		
+	}
 	
 	
 	private void preparedHelper(String sql) throws SQLException {

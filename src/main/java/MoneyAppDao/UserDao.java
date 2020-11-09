@@ -1,6 +1,7 @@
-package MoneyAppDoa;
+package MoneyAppDao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import MoneyAppPojos.Customer;
 
@@ -12,10 +13,10 @@ public interface UserDao {
 		
 		public Customer readCustomer(String username) throws SQLException;
 		
-		public Customer readAllCustomers() throws SQLException;
+		public List<Customer> readAllCustomers() throws SQLException;
 		
-		public Customer updateCustomer(String username, Customer user) throws SQLException;
+		public void updateCustomer(Customer user) throws SQLException;
 		
-		public void deleteCustomer(Customer user)throws SQLException ;
+		public void deleteCustomer(String username)throws SQLException ;
 		
 }

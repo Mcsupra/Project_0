@@ -59,7 +59,7 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				String phoneNumber = scan.nextLine();
 				
 				//Returns true is user is successfully created with params
-				return(userSignInChoice.createUser(firstName,lastName, username, password, email, phoneNumber)!=null);
+				return(userSignInChoice.createUser(firstName,lastName, username, password, email, phoneNumber)!=true);
 				
 				//Returns true if the username and password pair exists in the map
 			case 2:
@@ -67,7 +67,8 @@ public class MoneyAppControllerImpl implements MoneyAppController  {
 				String currentUsername = scan.nextLine();
 				System.out.println("What is you password?");
 				String currentPassword = scan.nextLine();
-				return (userSignInChoice.signIn(currentUsername, currentPassword));
+				if (userSignInChoice.signIn(currentUsername, currentPassword) == 1)
+						return true;
 				
 			default:
 				return false;

@@ -44,15 +44,15 @@ public class CreateMoneyImpl implements CreateMoney {
 	 * @return Bank
 	 */
 	@Override
-	public Bank createBank(String bankName, double currentBalance, String accountNumber, String routingNumber) {
+	public int createBank(String bankName, double currentBalance, String accountNumber, String routingNumber) {
 	
 		Bank newBank = new Bank(bankName,currentBalance,accountNumber,routingNumber);
 		if (!bankCache.getCache().containsKey(accountNumber)) {
 			bankCache.addToCache(accountNumber, newBank);
-			return newBank;
+			return 1;
 		}
 		else
-			return null;
+			return 0;
 	}
 	
 	/**

@@ -13,7 +13,7 @@ public class Customer {
 	private String firstName;
 	
 	private String lastName;
-
+	
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
