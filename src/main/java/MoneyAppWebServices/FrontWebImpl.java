@@ -34,12 +34,14 @@ public class FrontWebImpl implements UserSignIn, CreateMoney {
 			
 			if (checkCustomer == null) {
 				newCustomer = new Customer(username,password,email,phoneNum,firstName,lastName);
+				;
 				currentUser.createCustomer(newCustomer);
 				return true;
 			}	
 		} catch (SQLException e) {
 			// TODO Add logger
 			e.printStackTrace();
+			return false;
 		}
 		return false;
 	}
@@ -55,7 +57,7 @@ public class FrontWebImpl implements UserSignIn, CreateMoney {
 				//If return is -1, user does not exist in DB
 				return -1;
 			}else {
-				if (checkCustomer.getPassword() == password)
+				if (checkCustomer.getPassword().equals(password))
 					//Passwords matched
 					return 1;
 			}
@@ -74,7 +76,7 @@ public class FrontWebImpl implements UserSignIn, CreateMoney {
 			returnedBanks = newBank.readBank(currUser);
 			
 			for(Bank b:returnedBanks) {
-				if (b.getAccountNumber() == accountNumber) {
+				if (b.getAccountNumber().equals(accountNumber)) {
 					//Bank account already exists for this user
 					return 0;
 				}
@@ -82,20 +84,19 @@ public class FrontWebImpl implements UserSignIn, CreateMoney {
 				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return 0;
 		}
 		
 		Bank addBank = new Bank(bankName, currentBalance, accountNumber, routingNumber);
 		
 		try {
 			newBank.createBank(addBank, currUser);
+			//Bank created successfully
+			return 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return 0;
 		}
-		
-		//Bank created successfully
-		return 1;
 	}
 
 	@Override
@@ -105,15 +106,14 @@ public class FrontWebImpl implements UserSignIn, CreateMoney {
 			returnedCards = newCard.readCredit(currUser);
 			
 			for(Credit c:returnedCards) {
-				if (c.getCardNum() == cardNum) {
+				if (c.getCardNum().equals(cardNum)) {
 					//Bank account already exists for this user
 					return 0;
 				}
 			}
 				
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO logger
 		}
 		
 		Credit addCredit = new Credit(cardNum, cardType, expirationDate, cVV, balance);
@@ -121,8 +121,7 @@ public class FrontWebImpl implements UserSignIn, CreateMoney {
 		try {
 			newCard.createCredit(addCredit, currUser);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO Add logger
 		}
 		
 		//Bank created successfully

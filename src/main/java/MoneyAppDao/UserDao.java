@@ -9,14 +9,14 @@ public interface UserDao {
 		/**
 		 * Create user in db
 		 */
-		public void createCustomer (Customer user) throws SQLException;
+		public boolean createCustomer (Customer user) throws SQLException;
 		
 		public Customer readCustomer(String username) throws SQLException;
 		
 		public List<Customer> readAllCustomers() throws SQLException;
 		
-		public void updateCustomer(Customer user) throws SQLException;
+		public boolean updateCustomer(Customer user) throws SQLException;
 		
-		public void deleteCustomer(String username)throws SQLException ;
+		public boolean deleteCustomer(String username)throws SQLException ;
 		
 }

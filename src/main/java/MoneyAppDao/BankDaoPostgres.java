@@ -38,7 +38,7 @@ public class BankDaoPostgres implements BankDao {
 			
 	} catch (SQLException e) {
 				// TODO Add log
-				e.printStackTrace();
+			
 	}
 		
 	}

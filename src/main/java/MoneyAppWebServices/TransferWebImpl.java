@@ -20,17 +20,35 @@ public class TransferWebImpl implements MoneyTransferService {
 	public static UserDaoPostgres userDao = new UserDaoPostgres();
 	public static BankDaoPostgres bankDao = new BankDaoPostgres();
 	List<Credit> sendCard = new ArrayList<>();
+	List<Credit> fromCard = new ArrayList<>();
+	List<Credit> allCards = new ArrayList<>();
+	List<Bank> allBanks = new ArrayList<>();
+	Credit validCard = new Credit();
+	Bank validBank = new Bank();
+	Customer currentUser = new Customer();
 	
 	@Override
-	public boolean SendMoney(Customer fromUser, Credit currentCredit, String toUsername, double amount) {
+	public boolean SendMoney(String fromUser, String toUsername, double amount) {
 		
-		
+		int count = 0;
 		Customer toCustomer;
+		Customer fromCustomer;
+		
 		try {
 			
-			if (currentCredit.getBalance() < amount){
-				return false;
+			fromCustomer = userDao.readCustomer(fromUser);
+			fromCard = creditDao.readCredit(fromCustomer);
+			
+			for (int i = 0; i < fromCard.size();i++) {
+				if (fromCard.get(i).getBalance() > amount){
+					validCard = fromCard.get(i);
+					count++;
+					break;
+				}
 			} 
+			
+			if (count == 0)
+				return false;
 			
 			toCustomer = userDao.readCustomer(toUsername);
 			sendCard = creditDao.readCredit(toCustomer);
@@ -42,34 +60,58 @@ public class TransferWebImpl implements MoneyTransferService {
 			}
 		} catch (SQLException e) {
 			// TODO Add logger
-			e.printStackTrace();
 			return false;
 		}
 		
-		currentCredit.setBalance(currentCredit.getBalance()-amount);
+		validCard.setBalance(validCard.getBalance()-amount);
+		
 		try {
-			creditDao.updateCredit(currentCredit, fromUser);
+			creditDao.updateCredit(validCard, fromCustomer);
+			return true;
 		} catch (SQLException e) {
 			// TODO Add logger
-			e.printStackTrace();
 			return false;
-		}
-		
-		return true;
+		}		
 	}
 
 	@Override
-	public boolean AddFunds(Customer currentUser, Bank fromBankObj, Credit toCardObj, double amount) {
-		if (fromBankObj.getCurrentBalance()<amount)
-			return false;
-		else {
-			fromBankObj.setCurrentBalance(fromBankObj.getCurrentBalance()-amount);
-			toCardObj.setBalance(toCardObj.getBalance()+amount);
-		}
+	public boolean AddFunds(String username, double amount) {
+		
+		int count = 0;
 		
 		try {
-			creditDao.updateCredit(toCardObj, currentUser);
-			bankDao.updateBank(fromBankObj, currentUser);
+			currentUser = userDao.readCustomer(username);
+			allBanks = bankDao.readBank(currentUser);
+			allCards = creditDao.readCredit(currentUser);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		if (allCards == null)
+			return false;
+			
+		for (int i = 0; i < allBanks.size();i++) {
+			if (allBanks.get(i).getCurrentBalance()>amount) {
+				validBank = allBanks.get(i);
+				count++;
+				break;
+			}
+		}
+		
+		if (count == 0)
+			return false;
+		
+		
+		
+			validBank.setCurrentBalance(validBank.getCurrentBalance()-amount);
+			allCards.get(0).setBalance(allCards.get(0).getBalance()+amount);
+		
+		
+		try {
+			creditDao.updateCredit(allCards.get(0), currentUser);
+			bankDao.updateBank(validBank, currentUser);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,18 +123,43 @@ public class TransferWebImpl implements MoneyTransferService {
 	}
 
 	@Override
-	public boolean Removefunds(Customer currentUser, Credit fromUserCard, Bank toUserBank, double amount) {
+	public boolean Removefunds(String username, double amount) {
 		
-		if (fromUserCard.getBalance()<amount)
-			return false;
-		else {
-			fromUserCard.setBalance(fromUserCard.getBalance()-amount);
-			toUserBank.setCurrentBalance(toUserBank.getCurrentBalance()+amount);
-		}
+		int count = 0;
 		
 		try {
-			creditDao.updateCredit(fromUserCard, currentUser);
-			bankDao.updateBank(toUserBank, currentUser);
+			currentUser = userDao.readCustomer(username);
+			allBanks = bankDao.readBank(currentUser);
+			allCards = creditDao.readCredit(currentUser);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		if (allBanks == null)
+			return false;
+			
+		for (int i = 0; i < allCards.size();i++) {
+			if (allCards.get(i).getBalance()>amount) {
+				validCard = allCards.get(i);
+				count++;
+				break;
+			}
+		}
+		
+		if (count == 0)
+			return false;
+		
+		
+		
+			validCard.setBalance(validCard.getBalance()-amount);
+			allBanks.get(0).setCurrentBalance(allBanks.get(0).getCurrentBalance()+amount);
+		
+		
+		try {
+			creditDao.updateCredit(validCard, currentUser);
+			bankDao.updateBank(allBanks.get(0), currentUser);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
